@@ -25,6 +25,9 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// jsp를 사용하기 위한 것 build.gradle를 우클릭하고 Refrash Gradle Project 꼭하기
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	implementation 'javax.servlet:jstl:1.2'
 }
 
 test {
