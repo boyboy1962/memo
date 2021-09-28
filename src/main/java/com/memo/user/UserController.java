@@ -8,9 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
 	
+	/**
+	 * 회원가입 페이지
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/sign_up_view")
 	public String signUpView(Model model) {
 		model.addAttribute("viewName", "/user/sign_up");
 		return"template/layout";
 	}
+	
+	
 }
