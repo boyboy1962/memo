@@ -45,3 +45,47 @@
 		</form>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function(){
+		
+		// 아이디 중복확인
+		$('#loginIdCheckBtn').on('click', function(e){
+			let loginId = $('input[name=loginId]').val().trim();
+			
+			// alert(loginId);
+			// idCheckLength idCheckDuplicated idCheckOk
+			if (loginId.length < 4) {
+				$('#idCheckLength').removeClass('d-none'); // 경고문구 노출
+				$('#idCheckDuplicated').addClass('d-none'); // 숨김
+				$('#idCheckOk').addClass('d-none'); // 숨김
+				return;
+			}
+			
+			// ajax 서버 호출(중복여부)
+			$.ajax({
+				type:'get'
+				, url: '/user/is_duplicated_id'
+				, data: {'loginId':loginId}
+				, success: function(data){
+					alert(data.result)
+					
+					if (data.result) {
+						// 중복이다.
+						$('#idCheckLength').addClass('d-none');
+						$('#idCheckDuplicated').removeClass('d-none'); // 경고문구 노출
+						$('#idCheckOk').addClass('d-none'); 
+					} else {
+						// 가능하다. 	
+						$('#idCheckLength').addClass('d-none'); 
+						$('#idCheckDuplicated').addClass('d-none'); 
+						$('#idCheckOk').removeClass('d-none'); // 경고문구 노출
+					}
+				}
+				, error: function(e){
+					alert("아이디 중복확인에 실패했습니다. 관리자에게 문의해주세요.")
+				}
+			});
+		});
+	});
+</script>
