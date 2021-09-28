@@ -34,10 +34,4 @@ public class TestController {
 	public String test3() {
 		return "template/layout";
 	}
-	
-	@RequestMapping("/user/sign_in_view")
-	public String signInView() {
-		
-		return "user/login";
-	}
 }

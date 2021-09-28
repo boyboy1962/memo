@@ -19,5 +19,12 @@ public class UserController {
 		return"template/layout";
 	}
 	
+	//@RequestMapping("sign_in_view")
+	//public String 
+
+	@RequestMapping("/sign_in_view")
+	public String signInView() {
+		return "user/login";
+	}
 	
 }

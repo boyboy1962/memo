@@ -124,7 +124,8 @@
 			
 			//아이디 중복확인 완료됐는지 확인
 			// -- #idCheckOk <div> 클레스에 d-none이 없으면 사용가능
-			if ($('#idCheckOK').hasClass('d-none')){
+			//alert($('#idCheckOk').hasClass('d-none'));
+			if ($('#idCheckOk').hasClass('d-none')){
 				alert('아이디 중복확인을 해주세요.')
 				return;
 			}

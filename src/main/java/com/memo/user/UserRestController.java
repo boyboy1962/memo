@@ -51,8 +51,14 @@ public class UserRestController {
 		String encryptPassword = EncryptUtils.md5(password);
 		
 		// DB user insert
+		int row = userBO.addUser(loginId, encryptPassword, name, email);
 		
+		Map<String, Object> result = new HashMap<>();
 		
 		// 응답값 생성 후 리턴
+		if (row == 1) {
+			result.put("result", "success");
+		}
+		return result;
 	}
 }
