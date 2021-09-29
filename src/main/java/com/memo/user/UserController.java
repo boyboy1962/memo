@@ -23,8 +23,9 @@ public class UserController {
 	//public String 
 
 	@RequestMapping("/sign_in_view")
-	public String signInView() {
-		return "user/login";
+	public String signInView(Model model) {
+		model.addAttribute("viewName", "user/login");
+		return"template/layout";
 	}
 	
 }
