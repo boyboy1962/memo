@@ -1,5 +1,8 @@
 package com.memo.user;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +25,25 @@ public class UserController {
 	//@RequestMapping("sign_in_view")
 	//public String 
 
+	/**
+	 * 로그인 화면
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/sign_in_view")
 	public String signInView(Model model) {
 		model.addAttribute("viewName", "user/login");
 		return"template/layout";
+	}
+	
+	@RequestMapping("/sign_out")
+	public String signOut(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("userId");
+		session.removeAttribute("userNmae");
+		session.removeAttribute("userLoginId");
+		
+		return "redirect:/user/sign_in_view";
 	}
 	
 }
