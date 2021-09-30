@@ -6,11 +6,17 @@
 	<div class="col-6">
 		<h1 class="mt-3">로그인</h1>
 		<form method="POST" action="/servlet/quiz10" class="p-5 bg-light">
-			<div class="form-group w-100">
+			<div class="input-group w-100">
+				<div class="input-group-prepend">
+					<span class="input-group-text">ID</span>
+				</div>
 				<input type="text" class="form-control" id="id" name="id"
 					placeholder="Username">
 			</div>
-			<div class="form-group w-100">
+			<div class="input-group w-100">
+				<div class="input-group-prepend">
+					<span class="input-group-text">PW</span>
+				</div>
 				<input type="password" class="form-control" id="pw" name="pw"
 					placeholder="····">
 			</div>
@@ -30,14 +36,14 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">ID</span>
 			</div>
-			<input type="text" class="input-group" id="loginId" name=loginId>
+			<input type="text" class="form-control" id="loginId" name=loginId>
 		</div>
 		
 		<div class="input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text">PW</span>
 			</div>
-			<input type="password" class="input-group" id="password" name=password>
+			<input type="password" class="form-control" id="password" name=password>
 		</div>
 		
 		<input type="submit" class="btn btn-primary btn-block" value="로그인">

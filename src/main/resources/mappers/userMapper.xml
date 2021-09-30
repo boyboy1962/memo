@@ -30,7 +30,7 @@
  		)
  	</insert>
  	
- 	<select id="selectUserByLoginIdAndPassword" parameterType="String" resultType="boolean">
+ 	<select id="selectUserByLoginIdAndPassword" parameterType="String" resultType="com.memo.user.model.User">
  		SELECT
  			`id`
 			,`loginId`

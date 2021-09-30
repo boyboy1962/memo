@@ -1,5 +1,7 @@
 package com.memo.interceptor;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,9 +22,9 @@ public class PermissionInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(
 				HttpServletRequest request
-				, HttpServletResponse resopnse
+				, HttpServletResponse response
 				, Object handler
-			) {
+			) throws IOException {
 		logger.info("[### preHandle]" + request.getRequestURI());
 		
 		// 세션을 가져온다.

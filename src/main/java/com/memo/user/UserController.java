@@ -36,6 +36,11 @@ public class UserController {
 		return"template/layout";
 	}
 	
+	/**
+	 * 로그아웃
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/sign_out")
 	public String signOut(HttpServletRequest request) {
 		HttpSession session = request.getSession();
