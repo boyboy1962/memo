@@ -24,6 +24,12 @@ public class PostController {
 	@Autowired
 	private PostBO postBO;
 	
+	/**
+	 * 글 목록 화면
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("post_list_view")
 	public String postListView(Model model, HttpServletRequest request) {
 		// 글 목록들을 가져온다.
@@ -36,8 +42,15 @@ public class PostController {
 		
 		List<Post> postList = postBO.getPostList(userId);
 		//모델에 담는다.
+		model.addAttribute("postList", postList);
 		
 		model.addAttribute("viewName", "post/post_list");
+		return "template/layout";
+	}
+
+	@RequestMapping("/post_create_view")
+	public String postCreateView(Model model) {
+		model.addAttribute("viewName", "post/post_create");
 		return "template/layout";
 	}
 }

@@ -9,7 +9,7 @@
 			,`userId`
 			,`userName`
 			,`content`
-			,`imagePath`
+			,`imgUrl`
 			,`createdAt`
 			,`updatedAt`
 		FROM
