@@ -7,7 +7,7 @@
  		SELECT
  			`id`
 			,`userId`
-			,`userName`
+			,`subject`
 			,`content`
 			,`imgUrl`
 			,`createdAt`
@@ -16,6 +16,26 @@
 			`post`
 		WHERE
 			`userId` = #{userId}	
-		
  	</select>
+ 	<insert id="insertPost" parameterType="map">
+ 		INSERT INTO `post`
+ 		(
+			`userId`
+			,`subject`
+			,`content`
+			,`imgUrl`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{userId}
+ 			, #{subject}
+ 			, #{content}
+ 			, #{imgUrl}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 		
+ 	</insert>
  </mapper>

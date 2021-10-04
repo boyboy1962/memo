@@ -79,12 +79,48 @@
 				// 이 위에가 request 위한 설정이다.
 				// 나머지 그냥 설정
 				, success: function(data) {
-					alert("메모가 저장됐습니다." + e);
+					alert("메모가 저장됐습니다." + data);
+					location.href = "/post/post_list_view"
 				}
-				
+				, error: function(e) {
+					alert("메모 저장에 실패했습니다." + e);
+				}
 			});
 			
 		});
 		
 	});
 </script>
+<!-- 
+<script>
+	$(document).ready(function(){
+		// 파일 업로드 이미지 버튼 클릭 => 파일 선택장이 뜸
+		$('#fileUpladBtn').on('click', function(e){
+			e.preventDefault(); 	// 제일 위로 올라가는 동작 중지
+			$('#file').click();		// 사용자가 input file을 클릭한 것과 같은 동작
+		});
+		
+		// 사용자가 파일을 선택했을 때 => 파일명을 옆에 노출시킴
+		$('#file').on('change', function(e){
+			let fileName = e.target.files[0].name;
+			console.log("fileName: " + fileName);
+			
+			let fileNameArr = fileName.split('.');
+			if (
+					fileNameArr[fileNameArr.length - 1] != 'png'
+					&& fileNameArr[fileNameArr.length - 1] != 'gif'
+					&& fileNameArr[fileNameArr.length - 1] != 'jpg'
+					&& fileNameArr[fileNameArr.length - 1] != 'jpeg'
+			) {
+				alert("이미지 파일만 업로드 할 수 있습니다.");
+				$(this).val('');		// 올라가 있는 파일 지워 준다.
+				$("#fileName").text("");	// 잘못된 파일명도 지워준다. 
+				return;
+			}
+			
+			$("#fileName").text(fileName); // 파일명을 div 사이에 노출시킨다.
+			
+		})
+	}
+</script>
+ -->
