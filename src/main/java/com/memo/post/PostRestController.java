@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +51,29 @@ public class PostRestController {
 		}
 				
 		// 결과값 response
+		return result;
+	}
+	
+	@PutMapping("/update")
+	public Map<String, Object> update(
+				@RequestParam("postId") int postId
+				, @RequestParam("subject") String subject
+				, @RequestParam("content") String content
+				, @RequestParam(value="file", required=false) MultipartFile file 
+				, HttpServletRequest request
+			) {
+
+		// session에서 유저 id를 가져온다.
+		HttpSession session = request.getSession();
+		String loginId = (String) session.getAttribute("userLoginId");
+		
+		// DB update
+		postBO.updatePost(loginId, postId, subject, content, file);
+		
+		// 응답값 세팅
+		Map<String, Object> result = new HashMap<>();
+		result.put("result", "success");
+		
 		return result;
 	}
 }

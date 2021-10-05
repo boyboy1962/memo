@@ -43,5 +43,10 @@ public class FileManagerService {
 		// 예) http://localhost/images/1111_9878904385713/apple.png
 		return "/images/" + directoryName + file.getOriginalFilename();
 	}
+
+	public void deleteFile(String imgUrl) {
+		
+		
+	}
 	
 }

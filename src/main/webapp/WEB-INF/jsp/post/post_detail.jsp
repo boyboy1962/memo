@@ -10,7 +10,7 @@
 		<textarea id="content" rows="10" cols="100" class="form-control" placeholder="내용을 입력해주세요.">${post.content}</textarea>
 		
 		<div class="d-flex justify-content-end">
-			<input type="file" id="file" accept=".jpg, .jpeg, .png, .gif" value="${post.file}">		
+			<input type="file" id="file" accept=".jpg, .jpeg, .png, .gif">		
 		</div>
 		
 		<%-- 이미지가 있을 때만 이미지 영역 추가 --%>
@@ -24,7 +24,7 @@
 			<a href="/post/post_list_view" class="btn btn-danger float-left">삭제</a>
 			<div class="float-right">
 				<button type="button" id="listBtn" class="btn btn-dark">목록으로</button>
-				<button type="button" id="saveBtn" class="btn btn-primary">수정</button>			
+				<button type="button" id="saveBtn" class="btn btn-primary" data-post-id="${post.id}">수정</button>			
 			</div>
 		</div>
 	</div>
@@ -61,7 +61,35 @@
 					return;
 				}
 			}
-			location.href = "/post/post_list_view";
+			
+			let postId = $(this).data('post-id');
+			console.log("postId: " + postId);
+			
+			// 폼태그를 자바스크립트에서 만든다.
+			let formData = new FormData();
+			formData.append('postId', postId);
+			formData.append('subject', subject);
+			formData.append('content', content);
+			formData.append('file', $('#file')[0].files[0]);
+			
+			// ajax 통신으로 서버에 전송한다. view에다 보낼 수 없고 REstController에게 보낼 수 있다.
+			$.ajax({
+				type:'put'
+				, url: '/post/update'
+				, data: formData
+				, enctype: 'multipart/form-data'	//파일 업로드를 위한 필수 설정
+				, processData: false				//파일 업로드를 위한 필수 설정
+				, contentType: false				//파일 업로드를 위한 필수 설정
+				, success: function(data) {
+					if (data.result == 'success') {
+						alert("메모가 수정되었습니다.");
+						location.reload(true);		// 세로고침
+					}
+				}
+				, error: function(e) {
+					alert("메모 수정에 실패했습니다. 관리자에게 문의해주세요. " + e)
+				} 
+			});
 		});
 	});
 </script>
