@@ -19,7 +19,7 @@
 			<c:forEach items="${postList}" var="post">
 				<tr>
 					<th>${post.id}</th>
-					<th>${post.content}</th>
+					<th><a href="/post/post_detail_view?postId=${post.id}">${post.content}</a></th>
 					<th>
 						<%-- ${post.createdAt} --%>
 						<%-- Date 객체로 내려온 값을 String Format으로 변경해서 출력 --%>

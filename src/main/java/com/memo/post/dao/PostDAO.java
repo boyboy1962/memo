@@ -19,5 +19,7 @@ public interface PostDAO {
 			,@Param("content") String content
 			,@Param("imgUrl") String imageUrl
 			);
+	
+	public Post selectPostByPostId(int id); // 이미 걸러진 포스트이기에 그냥 id(postId)로 충분하다.
 
 }

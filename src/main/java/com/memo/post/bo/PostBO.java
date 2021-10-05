@@ -38,4 +38,8 @@ public class PostBO {
 		
 		return postDAO.insertPost(userId, subject, content, imgUrl);
 	}
+	
+	public Post getPostByPostId(int postId) {
+		return postDAO.selectPostByPostId(postId);
+	}
 }
