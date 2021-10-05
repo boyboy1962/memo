@@ -44,7 +44,22 @@ public class FileManagerService {
 		return "/images/" + directoryName + file.getOriginalFilename();
 	}
 
-	public void deleteFile(String imgUrl) {
+	public void deleteFile(String imgUrl) throws IOException {
+		// 파라미터:	/images/qwer_1634522345/apple.png
+		// 실제 경로:		D:\\1. 장재훈\\6._spring_project\\1. MEMO\\memo_workspace\\images/qwer_1634522345/apple.png
+		// 실제경로 + 파라미터	=> images 겹치기 때문에 한쪽(파라미터) /images/를 제거해줌
+		Path path = Paths.get(FILE_UPLOAD_PATH + imgUrl.replace("/images/", ""));
+		if (Files.exists(path)) {
+			// 파일이 존재하면 삭제한다.
+			Files.delete(path);
+		}
+		
+		// 디렉토리 삭제
+		path = path.getParent();
+		if (Files.exists(path)) {
+			// 디렉토리가 존재하면 삭제한다.
+			Files.delete(path);
+		}
 		
 		
 	}

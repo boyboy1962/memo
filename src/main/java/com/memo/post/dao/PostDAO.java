@@ -14,12 +14,19 @@ public interface PostDAO {
 	public List<Post> selectPostList(int userId);
 
 	public int insertPost(
-			@Param("userId") Integer userId
-			,@Param("subject") String subject
-			,@Param("content") String content
-			,@Param("imgUrl") String imageUrl
+				@Param("userId") Integer userId
+				,@Param("subject") String subject
+				,@Param("content") String content
+				,@Param("imgUrl") String imageUrl
 			);
 	
 	public Post selectPostByPostId(int id); // 이미 걸러진 포스트이기에 그냥 id(postId)로 충분하다.
+
+	public void updatePost(
+				@Param("id")int id 
+				,@Param("subject")String subject 
+				,@Param("content")String content
+				,@Param("imgUrl")String imgUrl
+			);
 
 }

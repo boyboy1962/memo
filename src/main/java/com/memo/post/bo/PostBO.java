@@ -75,6 +75,7 @@ public class PostBO {
 		}
 		
 		// DB update
+		postDAO.updatePost(postId, subject, content, imgUrl);
 		
 		
 		

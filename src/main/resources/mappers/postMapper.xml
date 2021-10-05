@@ -51,4 +51,18 @@
 		WHERE
 			`id` = #{id}	
  	</select>
+ 	<update id="updatePost" parameterType="map">
+ 		UPDATE 
+ 			`post`
+ 		SET
+ 			`subject` = #{subject}
+ 			, `content` = #{content}
+ 			, `updatedAt` = NOW()
+			<!-- imgUrl이 있을 때에만 수정한다. -->
+			<if test="imgUrl != null">
+				, `imgUrl` = #{imgUrl}
+			</if>
+ 		WHERE
+ 			`id` = #{id}
+ 	</update>
  </mapper>
