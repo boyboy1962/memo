@@ -80,4 +80,27 @@ public class PostBO {
 		
 		
 	}
+
+	public void deletePost(int postId) {
+		// postId로 post를 가져온다.
+			Post post = getPostByPostId(postId); // post가 null이면 에러가 뜨기에 검사한다. 말이 좀 안되긴하지만.... 
+			if (post == null) {
+				logger.error("[delete post] 삭제할 게시물이 없습니다. {}", postId);
+				return;
+			}
+			
+		// 그림이 있으면 삭제한다.
+		String imgUrl = post.getimgUrl();
+		if (imgUrl != null) {
+			try {
+				fileManagerService.deleteFile(imgUrl);
+			} catch (IOException e) {
+				logger.error("[delete post] 그림 삭제 실패 postId: {}, path: {}", postId, imgUrl);
+			}
+		}
+		
+		// 포스트를 삭제한다.
+		postDAO.deletePost(postId);
+		
+	}
 }

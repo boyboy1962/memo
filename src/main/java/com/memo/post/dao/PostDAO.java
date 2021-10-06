@@ -29,4 +29,6 @@ public interface PostDAO {
 				,@Param("imgUrl")String imgUrl
 			);
 
+	public void deletePost(int id); // PK인 경우 by를 쓰지 않은 것이 추천한다.
+
 }
