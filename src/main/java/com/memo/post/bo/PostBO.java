@@ -1,6 +1,7 @@
 package com.memo.post.bo;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,6 +17,8 @@ import com.memo.post.model.Post;
 @Service
 public class PostBO {
 
+	private static final int POST_MAX_SIZE = 3;
+	
 	private Logger logger = LoggerFactory.getLogger(PostBO.class);
 	
 	@Autowired
@@ -24,8 +27,38 @@ public class PostBO {
 	@Autowired
 	private FileManagerService fileManagerService;
 	
-	public List<Post> getPostList(int userId) {
-		return postDAO.selectPostList(userId);
+	public List<Post> getPostList(int userId, Integer prevId, Integer nextId) {
+		/* 10 9 8 / 7 6 5 / 4 3 2 / 1
+		 * 
+		 * 1 2 3 4 5 6 7 8 9 10 이전: 7보다 큰 3개 => 오름차순 8 9 10 코드에서 역순으로 변경해줌
+		 * 
+		 * 다음 5보다 작은 3개 => 내림차순 4 3 2
+		 */
+		String direction = null; // null || next || prev
+		Integer standardId = null;
+		
+		if (prevId != null) {
+			// 이전 클릭
+			direction = "prev";
+			standardId = prevId;
+			
+			// 7보다 큰 3개 => 8 9 10 reverse 시켜야 한다. => 10 9 8
+			List<Post> postList = postDAO.selectPostList(userId, direction, standardId, POST_MAX_SIZE);
+			Collections.reverse(postList); // 뒤집은 상태로 저장을 함 더
+			return postList;
+			
+		} else if (nextId != null) {
+			// 다음 클릭 
+			direction = "next";
+			standardId = nextId;
+			
+			
+		} else {
+			// 우와 아무 것도 없다... 그냥 null 쓸꺼임
+		}
+		
+		
+		return postDAO.selectPostList(userId, direction, standardId, POST_MAX_SIZE);
 	}
 
 	public int createPost(Integer userId, String userLoginId, String subject, String content, MultipartFile file) {
@@ -102,5 +135,15 @@ public class PostBO {
 		// 포스트를 삭제한다.
 		postDAO.deletePost(postId);
 		
+	}
+
+	public boolean isLastPage(Integer userId, int nextId) {
+		// 오름차순 limit 1 제일 작은 값 		nextId가 같으면 마지막 페이지
+		return nextId == postDAO.selectIdByUserIdAndSort(userId, "ASC");
+	}
+
+	public boolean isFirstPage(Integer userId, int prevId) {
+		// 내림차순 limit 1 제일 큰 값		prevId가 같으면 마지막 페이지
+		return prevId == postDAO.selectIdByUserIdAndSort(userId, "DESC");
 	}
 }

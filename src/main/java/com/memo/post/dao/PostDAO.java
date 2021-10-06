@@ -11,7 +11,17 @@ import com.memo.post.model.Post;
 @Repository
 public interface PostDAO {
 
-	public List<Post> selectPostList(int userId);
+	public List<Post> selectPostList(
+				@Param("userId") int userId
+				,@Param("direction") String direction
+				,@Param("standardId") Integer standardId
+				,@Param("limit") int limit
+			);
+	
+	public int selectIdByUserIdAndSort(
+				@Param("userId") int userId 
+				,@Param("sort") String sort
+			);
 
 	public int insertPost(
 				@Param("userId") Integer userId
@@ -30,5 +40,6 @@ public interface PostDAO {
 			);
 
 	public void deletePost(int id); // PK인 경우 by를 쓰지 않은 것이 추천한다.
+
 
 }

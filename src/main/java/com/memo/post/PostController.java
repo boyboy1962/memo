@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -32,7 +33,13 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping("post_list_view")
-	public String postListView(Model model, HttpServletRequest request) {
+	public String postListView(
+			@RequestParam(value = "prevId", required = false) Integer prevIdParam
+			, @RequestParam(value = "nextId", required = false) Integer nextIdParam
+			,Model model
+			, HttpServletRequest request
+			) {
+		
 		// 글 목록들을 가져온다.
 		HttpSession session = request.getSession();
 		Integer userId = (Integer)session.getAttribute("userId");
@@ -40,11 +47,28 @@ public class PostController {
 			logger.info("[post_list_view] userId is null. " + userId);
 			return "redirect:/user/sign_in_view";
 		}
+		List<Post> postList = postBO.getPostList(userId, prevIdParam, nextIdParam);
+		int prevId = 0;
+		int nextId = 0;
+		if (CollectionUtils.isEmpty(postList) == false) { //postList.isEmpty는 좋지 못하다. null이면 에러가 뜨기에
+			prevId = postList.get(0).getId();
+			nextId = postList.get(postList.size() - 1).getId();
+			
+			// 이전이나 다음이 없는 경우 0으로 세팅한다. (jsp에서 0인지 검사)
+			// 마지막페이지(다음 기준)인 경우 0으로 세팅
+			if (postBO.isLastPage(userId, nextId)) {
+				nextId = 0;
+			}
+			// 첫번째페이지(이전 기준)인 경우 0으로 세팅 
+			if (postBO.isFirstPage(userId, prevId)) {
+				prevId = 0;
+			}
+		}
 		
-		List<Post> postList = postBO.getPostList(userId);
 		//모델에 담는다.
+		model.addAttribute("prevId", prevId);
+		model.addAttribute("nextId", nextId);
 		model.addAttribute("postList", postList);
-		
 		model.addAttribute("viewName", "post/post_list");
 		return "template/layout";
 	}
