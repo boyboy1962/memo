@@ -22,6 +22,32 @@
 		
 		<div class="clearfix">
 			<a href="#" id="deleteBtn" class="btn btn-danger float-left" data-post-id="${post.id}">삭제</a>
+			
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+				  모두지우기
+				</button>
+				
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel">해당 메모를 정말 삭제하시겠습니까?</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        <span class="text-danger">※주의※ </span>한번 삭제되는 메모는 다시 되돌릴 수 없습니다<span class="text-danger"> ※주의※</span> 
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+				        <button type="button" class="btn btn-primary">삭제하기</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
 			<div class="float-right">
 				<button type="button" id="listBtn" class="btn btn-dark">목록으로</button>
 				<button type="button" id="saveBtn" class="btn btn-primary" data-post-id="${post.id}">수정</button>			
@@ -117,3 +143,28 @@
 		});
 	});
 </script>
+
+
+<!-- 		
+ 		// ... 버튼 클릭 (삭제를 하기 위해)
+		$('.more-btn').on('click', function(e){
+			e.preventDefault();
+			
+			// 포스트 아이디를 가져온다. => 지금 클릭된 태그의 포스트 아이디
+			let postId = $(this).data('post-id');
+			// alert(postId);
+			
+			// 모달에 포스트 아이디를 넣어준다.
+			$('#moreModal').data('post-id', postId);
+		});
+ 		
+ 		// 모달안에 있는 삭제하기 클릭
+ 		$('#moreModal .del-post').on('click', function(e) {
+ 			e.preventDefault();
+ 			
+ 			let postId = $('#moreModal').data('post-id');
+ 			alert(postId);
+ 			
+ 			// 서버한테 글 삭제 요청(ajax)
+ 		});
+ -->
