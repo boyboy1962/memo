@@ -36,7 +36,7 @@
 		<if test="direction == 'next'">
 		AND 
 			<![CDATA[
-			`id` > #{standardId}
+			`id` < #{standardId}
 			]]>
 		ORDER BY 
 			`id`
